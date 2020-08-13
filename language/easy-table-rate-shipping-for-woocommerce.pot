@@ -1,0 +1,238 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Blank Pot v1.0.0\n"
+"POT-Creation-Date: 2020-08-13 12:18+0600\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: Your Team <translations@example.com>\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Language: en_US\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: aazz-wc-main.php:52
+msgid ""
+"WooCommerce plugin is not activated. Please install and activate it to "
+"use"
+msgstr ""
+
+#: aazz-wc-main.php:52
+msgid "Easy Table Rate Shipping For Woommerce Plugin"
+msgstr ""
+
+#: inc/aazz-wc-calculate-shipping.php:90
+msgid "Free Shipping"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:33
+msgid "Table Rate Shipping"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:34
+msgid "Charge varying rates based on total price and weight"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:73
+msgid "Checkout Title"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:74 inc/new-shipping-method-form.php:13
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:99 inc/new-shipping-method-form.php:38
+msgid "Shipping Methods"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:141
+msgid "Table Rates"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:170
+msgid "Shipping Zones"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:176
+#: inc/aazz-wc-shipping-method.php:849
+msgid "Add New"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:555
+msgid "Based on"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:555
+msgid "Shipping cost will be calculated based on the selected parameter."
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:556
+msgid "Min Value"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:556
+msgid ""
+"Enter minimum value for the &quot;Based on&quot; parameter. Value "
+"based on the price will be calculated by WooCommerce tax settings "
+"&quot;Display prices during cart and checkout&quot;"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:557
+msgid "Max Value"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:557
+msgid ""
+"Enter maximum value for the &quot;Based on&quot; parameter. Value "
+"based on the price will be calculated by WooCommerce tax settings "
+"&quot;Display prices during cart and checkout&quot;"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:827
+msgid "Need more features?"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:831
+msgid "Support woocommerce build-in shipping classes"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:832
+msgid "Support Handling fees for each order"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:833
+msgid "Shipping rate can be guided by Country, State or Zip/Postal Code"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:834
+msgid "Calculate shipping based on the weight of items (lbs/kg)"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:835
+msgid "Calculate shipping Based on the number of item in the cart"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:836
+msgid "Calculate shipping Based on the item count"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:837
+msgid "Unlimited shipping services"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:838
+msgid "Option to add Estimated Delivery Date"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:839
+msgid "And much more..."
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:860
+msgid "Title"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:861
+msgid "Enabled"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:862
+msgid "Vasibility"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:864
+msgid "Select all"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:895
+#: inc/aazz-wc-shipping-method.php:902
+msgid "yes"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:919
+msgid "Remove selected Method"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:949
+msgid "Please select shipping methods to remove"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:997
+#: inc/aazz-wc-shipping-method.php:1018
+#, php-format
+msgid "Total Price (%s)"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:998
+#: inc/aazz-wc-shipping-method.php:1019
+#: inc/aazz-wc-shipping-method.php:1068
+#, php-format
+msgid "Weight (%s)"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:1067
+#, php-format
+msgid "Total (%s)"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:1213
+msgid "Error! doesn't exist…"
+msgstr ""
+
+#: inc/aazz-wc-shipping-method.php:1218
+msgid "All Other countries"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:6
+msgid "Enable/Disable"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:8
+msgid "Enable this shipping method"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:12
+msgid "Method Title"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:19
+msgid "Tax Status"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:23
+msgid "Taxable"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:24
+msgid "Not Taxable"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:28
+msgid "Visibility"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:29
+msgid "If select Yes, then Show only for logged in users"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:33
+msgid "NO"
+msgstr ""
+
+#: inc/new-shipping-method-form.php:34
+msgid "Yes"
+msgstr ""

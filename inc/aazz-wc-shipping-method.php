@@ -838,7 +838,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                             <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Option to add Estimated Delivery Date', AAZZ_WC_TEXTDOMAIN ); ?></li>
                                             <li><span class="dashicons dashicons-yes"></span> <?php _e( 'And much more...', AAZZ_WC_TEXTDOMAIN ); ?></li>
                                         </ul>
-                                        <p class="text-center"><a target="_blank" href="https://aazztech.com/product/easy-table-rate-shipping-for-woocommerce-pro" class="button button-primary">Get the Pro Version Now!</a></p>
+                                        <p class="text-center"><a target="_blank" href="https://aazztech.com/product/easy-table-rate-shipping-pro-for-woocommerce/" class="button button-primary">Get the Pro Version Now!</a></p>
 
                                     </div>
                                 </div>

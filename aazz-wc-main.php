@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Table Rate Shipping
 Plugin URI:  https://aazztech.com/product/easy-table-rate-shipping-pro-for-woocommerce/
 Description: It allows you to calculate WooCommerce shipping cost based on total price or weight.
-Version:     1.0.2
+Version:     1.1.0
 Author:      AazzTech
 Author URI:  https://aazztech.com
 License:     GPL2 or later
@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Domain Path: /languages/
 Text Domain: easy-table-rate-shipping-for-woocommerce
 WC requires at least: 3.0
-WC tested up to: 3.5.0
+WC tested up to: 4.3
 */
 defined( 'ABSPATH' ) || die( 'Cheating, huh? Direct access to this file is not allowed !!!!' );
 

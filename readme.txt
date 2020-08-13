@@ -2,8 +2,8 @@
 Contributors: AazzTech
 Tags: woocommerce table rate shipping, table rate shipping, woocommerce shipping, shipping, woocommerce
 Requires at least: 4.0
-Tested up to:  5.4
-Stable tag: 1.0.2
+Tested up to:  5.5
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,9 @@ After installing and activating the plugin, you go to  "Settings" menu from "Woo
 5. Cart
 
 == Changelog ==
+= 1.1.0 =
+* Add: WordPress 5.5 compatibility
+* Add: WooCommerce 4.3 compatibility
 = 1.0.2 =
 * Fixed : CSS issue
 = 1.0.1 =
