@@ -64,6 +64,7 @@ After installing and activating the plugin, you go to  "Settings" menu from "Woo
 = 1.1.0 =
 * Add: WordPress 5.5 compatibility
 * Add: WooCommerce 4.3 compatibility
+* Add: Language file
 = 1.0.2 =
 * Fixed : CSS issue
 = 1.0.1 =
