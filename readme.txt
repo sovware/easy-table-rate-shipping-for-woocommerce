@@ -2,8 +2,8 @@
 Contributors: AazzTech
 Tags: woocommerce table rate shipping, table rate shipping, woocommerce shipping, shipping, woocommerce
 Requires at least: 4.0
-Tested up to:  5.5
-Stable tag: 1.1.0
+Tested up to:  5.6
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Easy table rate shipping for WooCommerce  plugin is the  most easy and feature-r
 *   Translation ready.
 *   And many more features.
 
-Even more features are available in [__Pro version__](https://aazztech.com/product/easy-table-rate-shipping-pro-for-woocommerce).
+Even more features are available in [__Pro version__](https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce).
 
 = All features of the free version and including the following =
 *   Support WooCommerce build-in shipping classes
@@ -61,6 +61,9 @@ After installing and activating the plugin, you go to  "Settings" menu from "Woo
 5. Cart
 
 == Changelog ==
+= 1.1.1 =
+* Add: WordPress 5.6 compatibility
+* Add: WooCommerce 4.8 compatibility
 = 1.1.0 =
 * Add: WordPress 5.5 compatibility
 * Add: WooCommerce 4.3 compatibility
