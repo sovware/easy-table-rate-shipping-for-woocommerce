@@ -1,5 +1,5 @@
 === WooCommerce Table Rate Shipping ===
-Contributors: AazzTech
+Contributors: wpwax
 Tags: woocommerce table rate shipping, table rate shipping, woocommerce shipping, shipping, woocommerce
 Requires at least: 4.0
 Tested up to:  5.6
