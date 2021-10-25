@@ -34,6 +34,7 @@ Even more features are available in [__Pro version__](https://wpwax.com/product/
 *   Calculate shipping based on the weight of items (lbs/kg)
 *   Calculate shipping Based on the number of item in the cart
 *   Calculate shipping Based on the item count
+*   Calculate shipping Based on total item count & total price
 *   Unlimited shipping services
 *   Option to add estimated delivery Date
 *   And much more...
