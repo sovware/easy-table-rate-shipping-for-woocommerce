@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Table Rate Shipping
 Plugin URI:  https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/
 Description: It allows you to calculate WooCommerce shipping cost based on total price or weight.
-Version:     1.1.1
+Version:     1.2.0
 Author:      wpWax
 Author URI:  https://wpwax.com
 License:     GPL2 or later
@@ -30,6 +30,9 @@ class Aazztech_Wc_Table_Rate_Shipping {
         add_action('admin_enqueue_scripts',array($this,'aazz_wc_admin_enqueue'));
         add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array($this, 'aazz_wc_settings') );
         require_once AAZZ_WC_DIR . 'inc/aazz-wc-shipping-method.php';
+
+        // Initialize appsero tracking
+        $this->init_appsero();
     }
 
     //define all constant
@@ -67,7 +70,6 @@ class Aazztech_Wc_Table_Rate_Shipping {
 
     }
 
-
     public function aazz_wc_settings( $links ) {
         $links[] = '<a href="admin.php?page=wc-settings&tab=shipping">Settings</a>';
         $links[] .= '<a href="https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/">Pro</a>';
@@ -79,7 +81,24 @@ class Aazztech_Wc_Table_Rate_Shipping {
         load_plugin_textdomain( AAZZ_WC_TEXTDOMAIN, false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
     }
 
+    /**
+     * Initialize appsero tracking.
+     *
+     * @see https://github.com/Appsero/client
+     *
+     * @return void
+     */
+    public function init_appsero() {
+        if ( ! class_exists( '\Appsero\Client' ) ) {
+            require_once (dirname(__FILE__) . '/inc/appsero/src/Client.php');
+        }
 
+        $client = new Appsero\Client( '4b8cc86b-62e8-4134-b3b6-8e238a2fe16e', 'WooCommerce Table Rate Shipping', __FILE__ );
+
+        // Active insights
+        $client->insights()->init();
+    }
+    
     public static function aazz_wc_activate() {
         flush_rewrite_rules();
     }
