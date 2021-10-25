@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Domain Path: /languages/
 Text Domain: easy-table-rate-shipping-for-woocommerce
 WC requires at least: 3.0
-WC tested up to: 4.8
+WC tested up to: 5.7
 */
 defined( 'ABSPATH' ) || die( 'Cheating, huh? Direct access to this file is not allowed !!!!' );
 
