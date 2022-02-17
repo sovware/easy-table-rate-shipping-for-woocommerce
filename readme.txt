@@ -1,43 +1,53 @@
 === WooCommerce Table Rate Shipping ===
 Contributors: wpwax
-Tags: woocommerce table rate shipping, table rate shipping, woocommerce shipping, shipping, woocommerce
+Tags: woocommerce table rate shipping, woocommerce shipping, table rate shipping, conditional shipping, free shipping
 Requires at least: 4.0
 Tested up to:  5.9
 Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-It allows you to calculate WooCommerce shipping cost based on total price or weight.
+Table rate shipping extends WooCommerce’s default shipping options letting you calculate shipping costs based on total price, item count, weight, etc
 
 == Description ==
 
+👉 [Pro Version](https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/) | [Documentation](https://wpwax.com/docs/woocommerce-table-rate-shipping/) | [Support](https://wpwax.com/contact/) 👈
 
-Easy table rate shipping for WooCommerce  plugin is the  most easy and feature-rich   shipping  plugin for WooCommerce stores allowing you to calculate shipping costs based on total price or weight.  There are many table rate shipping plugins out there but none of them is as easy as this plugin. We do not like to scare user with tons of settings and options. We have implemented a very clean and easily-understandable setting panel where a user can easily calculate shipping cost.
+WooCommerce table rate shipping plugin is the easiest and feature-rich shipping plugin for WooCommerce stores allowing you to calculate shipping costs based on total price, weight, item count, etc. There are many table rate shipping plugins out there but setting conditional shipping rates is not as easy as it is with the WooCommerce Table Rate Shipping plugin. We do not like to scare users with tons of settings and options. We have implemented a very clean and easily-understandable setting panel where a user can easily calculate shipping costs based on multiple criteria.
+
+[youtube https://www.youtube.com/watch?v=cK8IZkqdNV4]
 
 
-
-= Here are a few unique features of this plugin: =
-*   Create Unlimited shipping method
-*   Shipping cost based on  Total Price.
-*   Shipping cost based on  Total Weight.
+= HERE ARE A FEW UNIQUE FEATURES OF WOOCOMMERCE TABLE RATE SHIPPING PLUGIN =
+*   Set unlimited conditional shipping rate.
+*   Set multiple shipping rates for zones like Country, State, or Zip/Postal Code. 
+*   Shipping cost based on Total Price.
+*   Shipping cost based on Total Weight.
 *   Show selected shipping methods only for logged in users
-*   Include or exclude Tax.
-*   Translation ready.
-*   And many more features.
+*   Add taxable/non-taxable shipping rates
+*   Translation ready
 
-Even more features are available in [__Pro version__](https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce).
 
-= All features of the free version and including the following =
+More features are available in the  [__Pro version__](https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce).
+
+= FEATURES OF THE WOOCOMMERCE TABLE RATE SHIPPING PRO =
+*   Calculate shipping rate based on the weight of items (lbs/kg)
+*   Calculate shipping rate based on the number of items in the cart
+*   Calculate shipping rate based on the total price of the cart
+*   Calculate shipping rate based on the item count
+*   Calculate shipping rate based on the combination of item count and total price
 *   Support WooCommerce build-in shipping classes
-*   Support Handling fees for each order
-*   Shipping rate can be guided by Country, State or Zip/Postal Code
-*   Calculate shipping based on the weight of items (lbs/kg)
-*   Calculate shipping Based on the number of item in the cart
-*   Calculate shipping Based on the item count
-*   Calculate shipping Based on total item count & total price
-*   Unlimited shipping services
+*   Set shipping rates for any class or specific WooCommerce class.
+*   Shipping handling fees for each order
 *   Option to add estimated delivery Date
-*   And much more...
+*   Premium support
+*   And many more…
+
+
+👉 Like us on Facebook : [wpWax](https://www.facebook.com/wpwax)
+👉 Official YouTube Channel : [YouTube](https://www.youtube.com/c/wpWax)
+
+
 
 == Installation ==
 
