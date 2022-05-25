@@ -53,7 +53,7 @@ class Aazztech_Wc_Table_Rate_Shipping {
         <div class="error">
             <p>
                 <?php
-                printf('%s <strong>%s</strong>', esc_html__('WooCommerce plugin is not activated. Please install and activate it to use', AAZZ_WC_TEXTDOMAIN), esc_html__('Easy Table Rate Shipping For Woommerce Plugin', AAZZ_WC_TEXTDOMAIN) );
+                printf('%s <strong>%s</strong>', esc_html__('WooCommerce plugin is not activated. Please install and activate it to use', 'easy-table-rate-shipping-for-woocommerce'), esc_html__('Easy Table Rate Shipping For Woommerce Plugin', 'easy-table-rate-shipping-for-woocommerce') );
                 ?>
             </p>
         </div>

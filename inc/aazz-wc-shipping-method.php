@@ -32,8 +32,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 public function __construct ( $instance_id = 0 ) {
                     $this->instance_id = absint( $instance_id );
                     $this->id = 'aazz_wc_table_rate';      // Id for your shipping method. Should be uunique.
-                    $this->method_title = __( 'Table Rate Shipping', AAZZ_WC_TEXTDOMAIN );  // Title shown in admin
-                    $this->method_description = __( 'Charge varying rates based on total price and weight', AAZZ_WC_TEXTDOMAIN ); // Description shown in admin
+                    $this->method_title = __( 'Table Rate Shipping', 'easy-table-rate-shipping-for-woocommerce' );  // Title shown in admin
+                    $this->method_description = __( 'Charge varying rates based on total price and weight', 'easy-table-rate-shipping-for-woocommerce' ); // Description shown in admin
                     $this->aazz_wc_shipping_method_order_option = 'aazz_wc_table_rate_shipping_method_order_' . $this->instance_id;
                     $this->supports = array(
                         'shipping-zones',
@@ -72,8 +72,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 public function init() {
                     $this->instance_form_fields = array(
                         'title' => array(
-                            'title'         => __( 'Checkout Title', AAZZ_WC_TEXTDOMAIN ),
-                            'description'   => __( 'This controls the title which the user sees during checkout.', AAZZ_WC_TEXTDOMAIN ),
+                            'title'         => __( 'Checkout Title', 'easy-table-rate-shipping-for-woocommerce' ),
+                            'description'   => __( 'This controls the title which the user sees during checkout.', 'easy-table-rate-shipping-for-woocommerce' ),
                             'type'          => 'text',
                             'default'       => 'Table Rate Shipping',
                             'desc_tip'      => true
@@ -98,7 +98,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                     $this->form_fields = array(
                         'shipping_list' => array(
-                            'title'         => __( 'Shipping Methods', AAZZ_WC_TEXTDOMAIN ),
+                            'title'         => __( 'Shipping Methods', 'easy-table-rate-shipping-for-woocommerce' ),
                             'type'          => 'shipping_list',
                             'description'   => '',
                         )
@@ -140,7 +140,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     </script>
 
                     <tr>
-                        <th scope="row" class="titledesc"><?php esc_html_e( 'Table Rates', AAZZ_WC_TEXTDOMAIN ); ?></th>
+                        <th scope="row" class="titledesc"><?php esc_html_e( 'Table Rates', 'easy-table-rate-shipping-for-woocommerce' ); ?></th>
                         <td id="<?php echo $this->id; ?>_settings">
                             <table class="shippingrows widefat">
                                 <col style="width:0%">
@@ -163,7 +163,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 //                                        <!--check action is new or edit-->
                     if ( $get_action_name == 'new' ) {
                         $link_content .= ' &gt ';
-                        $link_content .= __( 'Add New', AAZZ_WC_TEXTDOMAIN );
+                        $link_content .= __( 'Add New', 'easy-table-rate-shipping-for-woocommerce' );
                         ?>
                         <script>
                             jQuery("#mainform h2").first().replaceWith('<h2>' + '<?php echo $link_content; ?>' + '</h2>');
@@ -539,9 +539,9 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                                                         <thead>\
                                                                                 <tr>\
                                                                                         <th></th>\
-																						<th style="width: 25%"><?php _e('Based on', AAZZ_WC_TEXTDOMAIN); ?><span class="woocommerce-help-tip" data-tip="<?php _e( 'Shipping cost will be calculated based on the selected parameter.', AAZZ_WC_TEXTDOMAIN ); ?>"></span></th>\
-                                                                                        <th style="width: 25%"><?php _e('Min Value', AAZZ_WC_TEXTDOMAIN); ?> <span class="woocommerce-help-tip" data-tip="<?php _e( 'Enter minimum value for the &quot;Based on&quot; parameter. Value based on the price will be calculated by WooCommerce tax settings &quot;Display prices during cart and checkout&quot;', AAZZ_WC_TEXTDOMAIN ); ?>"></span></th>\
-                                                                                                                    <th style="width: 25%"><?php _e('Max Value', AAZZ_WC_TEXTDOMAIN); ?><span class="woocommerce-help-tip" data-tip="<?php _e('Enter maximum value for the &quot;Based on&quot; parameter. Value based on the price will be calculated by WooCommerce tax settings &quot;Display prices during cart and checkout&quot;', AAZZ_WC_TEXTDOMAIN ); ?>"></th>\
+																						<th style="width: 25%"><?php _e('Based on', 'easy-table-rate-shipping-for-woocommerce'); ?><span class="woocommerce-help-tip" data-tip="<?php _e( 'Shipping cost will be calculated based on the selected parameter.', 'easy-table-rate-shipping-for-woocommerce' ); ?>"></span></th>\
+                                                                                        <th style="width: 25%"><?php _e('Min Value', 'easy-table-rate-shipping-for-woocommerce'); ?> <span class="woocommerce-help-tip" data-tip="<?php _e( 'Enter minimum value for the &quot;Based on&quot; parameter. Value based on the price will be calculated by WooCommerce tax settings &quot;Display prices during cart and checkout&quot;', 'easy-table-rate-shipping-for-woocommerce' ); ?>"></span></th>\
+                                                                                                                    <th style="width: 25%"><?php _e('Max Value', 'easy-table-rate-shipping-for-woocommerce'); ?><span class="woocommerce-help-tip" data-tip="<?php _e('Enter maximum value for the &quot;Based on&quot; parameter. Value based on the price will be calculated by WooCommerce tax settings &quot;Display prices during cart and checkout&quot;', 'easy-table-rate-shipping-for-woocommerce' ); ?>"></th>\
                                                                                                                                                 <th style="width: 25%">Shipping Rate</th>\
                                                                                                                                         </tr>\
                                                                                                                                 </thead>\
@@ -811,19 +811,19 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     <div class="aazz-wc-table-rate-shipping-pro-box">
                         <div class="metabox-holder">
                             <div class="stuffbox">
-                                <h3 class="hndle"><?php esc_html_e( 'Need more features?', AAZZ_WC_TEXTDOMAIN ); ?></h3>
+                                <h3 class="hndle"><?php esc_html_e( 'Need more features?', 'easy-table-rate-shipping-for-woocommerce' ); ?></h3>
                                 <div class="inside">
                                     <div class="main">
                                         <ul>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support woocommerce build-in shipping classes', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support Handling fees for each order', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Shipping rate can be guided by Country, State or Zip/Postal Code', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping based on the weight of items (lbs/kg)', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the number of item in the cart', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the item count', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Unlimited shipping services', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Option to add Estimated Delivery Date', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'And much more...', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support woocommerce build-in shipping classes', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support Handling fees for each order', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Shipping rate can be guided by Country, State or Zip/Postal Code', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping based on the weight of items (lbs/kg)', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the number of item in the cart', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the item count', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Unlimited shipping services', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Option to add Estimated Delivery Date', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'And much more...', 'easy-table-rate-shipping-for-woocommerce' ); ?></li>
                                         </ul>
                                         <p class="text-center"><a target="_blank" href="https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/" class="button button-primary">Get the Pro Version Now!</a></p>
 
@@ -833,7 +833,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         </div>
                     </div>
                     <h3 class="add_shipping_method" id="shiping_methods_h3">All shipping methods
-                        <a href="<?php echo remove_query_arg('shipping_methods_id', add_query_arg('action', 'new')); ?>" class="add-new-h2"><?php echo __('Add New', AAZZ_WC_TEXTDOMAIN); ?></a>
+                        <a href="<?php echo remove_query_arg('shipping_methods_id', add_query_arg('action', 'new')); ?>" class="add-new-h2"><?php echo __('Add New', 'easy-table-rate-shipping-for-woocommerce'); ?></a>
                     </h3>
 
 
@@ -844,11 +844,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                     <thead>
                                     <tr>
                                         <th class="sort" style="width: 1%;">&nbsp;</th>
-                                        <th class="method_title" style="width: 30%;"><?php esc_html_e( 'Title', AAZZ_WC_TEXTDOMAIN ); ?></th>
-                                        <th class="method_status" style="width: 1%;text-align: center;"><?php esc_html_e( 'Enabled', AAZZ_WC_TEXTDOMAIN ); ?></th>
-                                        <th class="method_vasibility" style="width: 1%;text-align: center;"><?php esc_html_e( 'Vasibility', AAZZ_WC_TEXTDOMAIN ); ?></th>
+                                        <th class="method_title" style="width: 30%;"><?php esc_html_e( 'Title', 'easy-table-rate-shipping-for-woocommerce' ); ?></th>
+                                        <th class="method_status" style="width: 1%;text-align: center;"><?php esc_html_e( 'Enabled', 'easy-table-rate-shipping-for-woocommerce' ); ?></th>
+                                        <th class="method_vasibility" style="width: 1%;text-align: center;"><?php esc_html_e( 'Vasibility', 'easy-table-rate-shipping-for-woocommerce' ); ?></th>
 
-                                        <th class="method_select" style="width: 0%;"><input type="checkbox" class="tips checkbox-select-all" data-tip="<?php esc_html_e( 'Select all', AAZZ_WC_TEXTDOMAIN ); ?> " class="checkall-checkbox-class" id="checkall_checkbox" /></th>
+                                        <th class="method_select" style="width: 0%;"><input type="checkbox" class="tips checkbox-select-all" data-tip="<?php esc_html_e( 'Select all', 'easy-table-rate-shipping-for-woocommerce' ); ?> " class="checkall-checkbox-class" id="checkall_checkbox" /></th>
                                     </tr>
                                     </thead>
                                     <!--get option for saved methods details-->
@@ -879,14 +879,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                             </td>
                                             <td class="method-status" style="width: 524px;display: -moz-stack; margin:0 auto;"">
                                                 <?php if ( isset( $shipping_method_options['method_enabled'] ) && 'yes' === $shipping_method_options['method_enabled'] ) : ?>
-                                                    <span class="status-enabled tips" style="margin:0 auto;" data-tip="<?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?>"><?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?></span>
+                                                    <span class="status-enabled tips" style="margin:0 auto;" data-tip="<?php esc_html_e( 'yes', 'easy-table-rate-shipping-for-woocommerce' ); ?>"><?php esc_html_e( 'yes', 'easy-table-rate-shipping-for-woocommerce' ); ?></span>
                                                 <?php else : ?>
                                                     <span class="na">-</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td class="method-status" style="width:1%;display: -moz-stack;">
                                                 <?php if ( isset( $shipping_method_options['method_visibility'] ) && 'yes' === $shipping_method_options['method_visibility'] ) : ?>
-                                                    <span class="status-enabled tips" style="margin:0 auto; data-tip="<?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?>"><?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?></span>
+                                                    <span class="status-enabled tips" style="margin:0 auto; data-tip="<?php esc_html_e( 'yes', 'easy-table-rate-shipping-for-woocommerce' ); ?>"><?php esc_html_e( 'yes', 'easy-table-rate-shipping-for-woocommerce' ); ?></span>
                                                 <?php else : ?>
                                                     <span class="na">-</span>
                                                 <?php endif; ?>
@@ -903,7 +903,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                     <tfoot>
                                     <tr>
                                         <th colspan="8">
-                                            <button id="aazz_wc_table_rate_remove_selected_method" class="button" disabled><?php esc_html_e( 'Remove selected Method', AAZZ_WC_TEXTDOMAIN ); ?></button>
+                                            <button id="aazz_wc_table_rate_remove_selected_method" class="button" disabled><?php esc_html_e( 'Remove selected Method', 'easy-table-rate-shipping-for-woocommerce' ); ?></button>
 
 
                                         </th>
@@ -933,7 +933,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                 }
                             })
                             if (first) {
-                                alert('<?php _e('Please select shipping methods to remove', AAZZ_WC_TEXTDOMAIN); ?>');
+                                alert('<?php _e('Please select shipping methods to remove', 'easy-table-rate-shipping-for-woocommerce'); ?>');
                                 return false;
                             }
                             if (url != '<?php echo add_query_arg('method_id', '', add_query_arg('action', 'delete')); ?>') {
@@ -981,8 +981,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                     //first the CONDITION html
                     $this->aazz_wc_condition_array = array();
-                    $this->aazz_wc_condition_array['total'] = sprintf( __( 'Total Price (%s)', AAZZ_WC_TEXTDOMAIN ), get_woocommerce_currency_symbol() );
-                    $this->aazz_wc_condition_array['weight'] = sprintf( __( 'Weight (%s)', AAZZ_WC_TEXTDOMAIN ), get_option('woocommerce_weight_unit') );
+                    $this->aazz_wc_condition_array['total'] = sprintf( __( 'Total Price (%s)', 'easy-table-rate-shipping-for-woocommerce' ), get_woocommerce_currency_symbol() );
+                    $this->aazz_wc_condition_array['weight'] = sprintf( __( 'Weight (%s)', 'easy-table-rate-shipping-for-woocommerce' ), get_option('woocommerce_weight_unit') );
 
 
 
@@ -1002,8 +1002,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 function create_select_html() {
                     //first the CONDITION html
                     $arr = array();
-                    $arr['total'] = sprintf(__('Total Price (%s)', AAZZ_WC_TEXTDOMAIN), get_woocommerce_currency_symbol());
-                    $arr['weight'] = sprintf(__('Weight (%s)', AAZZ_WC_TEXTDOMAIN), get_option('woocommerce_weight_unit'));
+                    $arr['total'] = sprintf(__('Total Price (%s)', 'easy-table-rate-shipping-for-woocommerce'), get_woocommerce_currency_symbol());
+                    $arr['weight'] = sprintf(__('Weight (%s)', 'easy-table-rate-shipping-for-woocommerce'), get_option('woocommerce_weight_unit'));
 
 
                     //now create the html from the array
@@ -1051,8 +1051,8 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                     endforeach;
 
                     // Now the conditions - cater for language & woo
-                    $option['condition']['price'] = sprintf( __( 'Total (%s)', AAZZ_WC_TEXTDOMAIN ), get_woocommerce_currency_symbol() );
-                    $option['condition']['weight'] = sprintf( __( 'Weight (%s)', AAZZ_WC_TEXTDOMAIN ), get_option('woocommerce_weight_unit') );
+                    $option['condition']['price'] = sprintf( __( 'Total (%s)', 'easy-table-rate-shipping-for-woocommerce' ), get_woocommerce_currency_symbol() );
+                    $option['condition']['weight'] = sprintf( __( 'Weight (%s)', 'easy-table-rate-shipping-for-woocommerce' ), get_option('woocommerce_weight_unit') );
 
 
                     return $options;
@@ -1196,11 +1196,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 
                     // 1. Wrong Shipping method rate id
                     if( empty( $zone_id ) ) {
-                        return __( "Error! doesn't exist…", AAZZ_WC_TEXTDOMAIN );
+                        return __( "Error! doesn't exist…", 'easy-table-rate-shipping-for-woocommerce' );
                     }
                     // 2. Default WC Zone name
                     elseif( $zone_id == 0 ) {
-                        return __( "All Other countries", AAZZ_WC_TEXTDOMAIN );
+                        return __( "All Other countries", 'easy-table-rate-shipping-for-woocommerce' );
                     }
                     // 3. Created Zone name
                     else {
