@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || die( 'Cheating, huh? Direct access to this file is not a
 
 class Aazztech_Wc_Table_Rate_Shipping {
 
-    public function __construct() {
+    public function __construct () {
         $this->aazz_define_all_constants();
 
         if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
@@ -25,10 +25,11 @@ class Aazztech_Wc_Table_Rate_Shipping {
             add_action( 'admin_notices', array($this, 'aazz_wc_admin_notice') );
         }
         //load text domain
-        add_action('plugins_loaded', array($this, 'load_textdomain'));
+        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
         //include css and js files for admin
-        add_action('admin_enqueue_scripts',array($this,'aazz_wc_admin_enqueue'));
+        add_action( 'admin_enqueue_scripts', array( $this,'aazz_wc_admin_enqueue' ) );
         add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array($this, 'aazz_wc_settings') );
+        require_once AAZZ_WC_DIR . 'inc/helper.php';
         require_once AAZZ_WC_DIR . 'inc/aazz-wc-shipping-method.php';
 
         // Initialize appsero tracking
@@ -109,7 +110,7 @@ class Aazztech_Wc_Table_Rate_Shipping {
 
 } //end class
 
-register_activation_hook(__FILE__, array('Aazztech_Wc_Table_Rate_Shipping','aazz_wc_activate'));
-register_deactivation_hook(__FILE__, array('Aazztech_Wc_Table_Rate_Shipping','aazz_wc_deactivate'));
+register_activation_hook( __FILE__, array('Aazztech_Wc_Table_Rate_Shipping','aazz_wc_activate') );
+register_deactivation_hook( __FILE__, array('Aazztech_Wc_Table_Rate_Shipping','aazz_wc_deactivate') );
 
 new Aazztech_Wc_Table_Rate_Shipping();

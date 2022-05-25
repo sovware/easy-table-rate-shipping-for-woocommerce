@@ -1,21 +1,23 @@
 <?php
-defined( 'ABSPATH' ) || die( 'Cheating, huh? Direct access to this file is not allowed !!!!' );
+/**
+ * Exit if accessed directly
+ */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-add_action('woocommerce_shipping_init', 'aazz_wc_table_rate_init');
+add_action( 'woocommerce_shipping_init', 'aazz_wc_table_rate_init' );
 
-function aazz_wc_shipping_method($methods) {
+function aazz_wc_shipping_method( $methods ) {
     $methods['aazz_wc_table_rate'] = 'Aazz_Wc_Table_Rate_Shipping_Method';
     return $methods;
 }
 add_filter('woocommerce_shipping_methods', 'aazz_wc_shipping_method');
 
-
-if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-    function aazz_wc_table_rate_init ()
-    {
-        if (!class_exists('Aazz_Wc_Table_Rate_Shipping_Method')) {
-            class Aazz_Wc_Table_Rate_Shipping_Method extends WC_Shipping_Method
-            {
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    function aazz_wc_table_rate_init() {
+        if ( ! class_exists( 'Aazz_Wc_Table_Rate_Shipping_Method' ) ) {
+            class Aazz_Wc_Table_Rate_Shipping_Method extends WC_Shipping_Method {
                 //all variables
                 public $aazz_wc_shipping_method_order_option;
                 public $aazz_wc_zones_settings;
@@ -27,11 +29,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 public $aazz_wc_country_array;
                 public $counter;
 
-                public function __construct($instance_id = 0) {
-                    $this->instance_id = absint($instance_id);
+                public function __construct ( $instance_id = 0 ) {
+                    $this->instance_id = absint( $instance_id );
                     $this->id = 'aazz_wc_table_rate';      // Id for your shipping method. Should be uunique.
-                    $this->method_title = __('Table Rate Shipping', AAZZ_WC_TEXTDOMAIN);  // Title shown in admin
-                    $this->method_description = __('Charge varying rates based on total price and weight', AAZZ_WC_TEXTDOMAIN); // Description shown in admin
+                    $this->method_title = __( 'Table Rate Shipping', AAZZ_WC_TEXTDOMAIN );  // Title shown in admin
+                    $this->method_description = __( 'Charge varying rates based on total price and weight', AAZZ_WC_TEXTDOMAIN ); // Description shown in admin
                     $this->aazz_wc_shipping_method_order_option = 'aazz_wc_table_rate_shipping_method_order_' . $this->instance_id;
                     $this->supports = array(
                         'shipping-zones',
@@ -50,13 +52,13 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->counter = 0;         //we use this to keep unique names for the rows
 
 
-                    $this->title = $this->get_option('title');
+                    $this->title = $this->get_option( 'title' );
 
                     $this->init();
                     if ( version_compare( WC()->version, '2.6' ) < 0  && $this->get_option( 'enabled', 'yes' ) == 'no' ) {
                         $this->enabled		    = $this->get_option( 'enabled' );
                     }
-                    $this->title = $this->get_option('title');
+                    $this->title = $this->get_option( 'title' );
 
                     $this->get_options();           //load the options
                 }
@@ -70,11 +72,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 public function init() {
                     $this->instance_form_fields = array(
                         'title' => array(
-                            'title' => __('Checkout Title', AAZZ_WC_TEXTDOMAIN),
-                            'description' => __('This controls the title which the user sees during checkout.', AAZZ_WC_TEXTDOMAIN),
-                            'type' => 'text',
-                            'default' => 'Table Rate Shipping',
-                            'desc_tip' => true
+                            'title'         => __( 'Checkout Title', AAZZ_WC_TEXTDOMAIN ),
+                            'description'   => __( 'This controls the title which the user sees during checkout.', AAZZ_WC_TEXTDOMAIN ),
+                            'type'          => 'text',
+                            'default'       => 'Table Rate Shipping',
+                            'desc_tip'      => true
                         ),
 
                     );
@@ -87,7 +89,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->create_select_arrays();
 
                     // save settings features
-                    add_action('woocommerce_update_options_shipping_' . $this->id, array($this, 'process_admin_options'));
+                    add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
 
                 }
 
@@ -96,23 +98,23 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                     $this->form_fields = array(
                         'shipping_list' => array(
-                            'title' => __('Shipping Methods', AAZZ_WC_TEXTDOMAIN),
-                            'type' => 'shipping_list',
-                            'description' => '',
+                            'title'         => __( 'Shipping Methods', AAZZ_WC_TEXTDOMAIN ),
+                            'type'          => 'shipping_list',
+                            'description'   => '',
                         )
                     );
                 }
 
 
                 //generate html for all options
-                public function generate_table_rates_table_html($key, $data) {
+                public function generate_table_rates_table_html( $key, $data ) {
                     ob_start();
-                    if (isset($_GET['action'])) {
+                    if ( isset( $_GET['action'] ) ) {
                         $get_action_name = $_GET['action'];
                     }
                     ?>
                     <script>
-                        jQuery(document).ready(function(){
+                        jQuery( document ).ready( function(){
                             //add shipping box on page load by default. // removes an ability to click on "Add New Shipping Zone" button
                             if( jQuery('.aazz-raterow').length == 0 ){
                                 var zoneID = "#" + pluginID + "_settings";
@@ -127,71 +129,59 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                 row.countries = [];
                                 jQuery(id).before(create_zone_row(row));
                             }
-                        });
-                        jQuery("#mc_button").click(function (e) {
+                        } );
+                        jQuery( "#mc_button" ).click( function (e) {
                             e.preventDefault();
                             console.log('clicked');
                             data = {};
 
-                        });
+                        } );
 
                     </script>
 
                     <tr>
-                        <th scope="row" class="titledesc"><?php _e('Table Rates', AAZZ_WC_TEXTDOMAIN); ?></th>
+                        <th scope="row" class="titledesc"><?php esc_html_e( 'Table Rates', AAZZ_WC_TEXTDOMAIN ); ?></th>
                         <td id="<?php echo $this->id; ?>_settings">
                             <table class="shippingrows widefat">
                                 <col style="width:0%">
                                 <col style="width:0%">
                                 <col style="width:0%">
                                 <col style="width:100%;">
-                                <!--<thead>
-                                    <tr>
-                                        <th class="check-column"></th>
-                                        <th>Shipping Zone Name</th>
-                                        <th>Condition</th>
-                                        <th>Countries</th>
-                                    </tr>
-                                </thead> -->
                                 <tbody style="border: 1px solid black;">
-                                <tr style="border: 1px solid black;">
-                                    <!--<td colspan="5" class="add-zone-buttons">
-                                        <a href="#" class="add button">Add New Shipping Zone</a>
-                                        <a href="#" class="delete button">Delete Selected Zones</a>
-                                    </td>-->
-                                </tr>
+                                    <tr style="border: 1px solid black;">
+                                    </tr>
                                 </tbody>
                             </table>
                         </td>
                     </tr>
                     <?php
-                    $zone = WC_Shipping_Zones::get_zone_by('instance_id', $_GET['instance_id']);
-                    $get_shipping_method_by_instance_id = WC_Shipping_Zones::get_shipping_method($_GET['instance_id']);
-                    $link_content = '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping') . '">' . __('Shipping Zones', 'woocommerce') . '</a> &gt ';
-                    $link_content .= '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping&zone_id=' . absint($zone->get_id())) . '">' . esc_html($zone->get_zone_name()) . '</a> &gt ';
-                    $link_content .= '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping&instance_id=' . $_GET['instance_id']) . '">' . esc_html($get_shipping_method_by_instance_id->get_title()) . '</a>';
+                    $zone = WC_Shipping_Zones::get_zone_by( 'instance_id', $_GET['instance_id'] );
+                    $get_shipping_method_by_instance_id = WC_Shipping_Zones::get_shipping_method( $_GET['instance_id'] );
+                    $link_content = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping' ) . '">' . __( 'Shipping Zones', 'woocommerce' ) . '</a> &gt ';
+                    $link_content .= '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=' . absint( $zone->get_id() ) ) . '">' . esc_html( $zone->get_zone_name() ) . '</a> &gt ';
+                    $link_content .= '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping&instance_id=' . $_GET['instance_id']) . '">' . esc_html( $get_shipping_method_by_instance_id->get_title() ) . '</a>';
 //                                        <!--check action is new or edit-->
-                    if ($get_action_name == 'new') {
+                    if ( $get_action_name == 'new' ) {
                         $link_content .= ' &gt ';
-                        $link_content .= __('Add New', AAZZ_WC_TEXTDOMAIN);
+                        $link_content .= __( 'Add New', AAZZ_WC_TEXTDOMAIN );
                         ?>
                         <script>
                             jQuery("#mainform h2").first().replaceWith('<h2>' + '<?php echo $link_content; ?>' + '</h2>');
-                            var options = <?php echo json_encode($this->aazz_wc_dropdown()); ?>;
+                            var options = <?php echo json_encode( $this->aazz_wc_dropdown() ); ?>;
 
-                            var aazz_wc_country_array = <?php echo json_encode($this->aazz_wc_country_array); ?>;
-                            var aazz_wc_condition_array = <?php echo json_encode($this->aazz_wc_condition_array); ?>;
-                            var pluginID = <?php echo json_encode($this->id); ?>;
+                            var aazz_wc_country_array = <?php echo json_encode( $this->aazz_wc_country_array ); ?>;
+                            var aazz_wc_condition_array = <?php echo json_encode( $this->aazz_wc_condition_array ); ?>;
+                            var pluginID = <?php echo json_encode( $this->id ); ?>;
                             console.log('test NISL 1');
                             var lastID = 0;
 
                             <?php
                             //
-                            foreach ($this->options as $key => $value) {
+                            foreach ( $this->options as $key => $value ) {
                                 global $row;
                                 //add the key back into the json object
                                 $value['key'] = $key;
-                                $row = json_encode($value);
+                                $row = json_encode( $value );
                                 echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$row}));\n";
                             }
                             ?>
@@ -207,10 +197,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                 lastID = jQuery(el).last().attr('id');
 
                                 //Handle no rows
-                                if (typeof lastID == 'undefined' || lastID == "") {
+                                if ( typeof lastID == 'undefined' || lastID == "" ) {
                                     lastID = 1;
                                 } else {
-                                    lastID = Number(lastID) + 1;
+                                    lastID = Number( lastID ) + 1;
                                 }
 
                                 var html = '\
@@ -234,7 +224,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                                                                         <th style="width: 40%">Shipping Rate</th>\
                                                                                 </tr>\
                                                                         </thead>\
-                                                                        ' + create_rate_row(lastID, row) + '\
+                                                                        ' + create_rate_row( lastID, row ) + '\
                                                                         <tr>\
                                                                                 <td colspan="4" class="add-rate-buttons">\
                                                                                         <a href="#" class="add button" name="key_' + lastID + '">Add New Rate</a>\
@@ -253,10 +243,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                              * This creates a new RATE row
                              * The container Table is passed in and this row is added to it
                              */
-                            function create_rate_row(lastID, row) {
+                            function create_rate_row( lastID, row ) {
 
 
-                                if (row == null || row.rates.length == 0) {
+                                if ( row == null || row.rates.length == 0 ) {
                                     //lets manufacture a rows
                                     //create dummy row
                                     var row = {};
@@ -272,12 +262,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                 //loop thru all the rate data and create rows
 
                                 //handles if there are no rate rows yet
-                                if (typeof (row.min) == 'undefined' || row.min == null) {
+                                if ( typeof (row.min) == 'undefined' || row.min == null ) {
                                     row.min = [];
                                 }
 
                                 var html = '';
-                                for (var i = 0; i < 1; i++) {
+                                for ( var i = 0; i < 1; i++ ) {
                                     html += '\
                                                         <tr>\
                                                                 <td>\
@@ -315,7 +305,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                                 var row = jQuery(this).parent('td').parent('tr').next();
 
-                                if (jQuery(row).hasClass('aazz-hidden-row')) {
+                                if ( jQuery(row).hasClass('aazz-hidden-row') ) {
                                     jQuery(row).removeClass('aazz-hidden-row').addClass('aazz-show-row');
                                     jQuery(this).removeClass('expand-icon').addClass('collapse-icon');
                                 } else {
@@ -333,11 +323,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             // select. Uses an array of keys to
                             // determine which ones are selected
                             //**************************************
-                            function generate_country_html(keys) {
+                            function generate_country_html( keys ) {
 
                                 html = "";
 
-                                for (var key in aazz_wc_country_array) {
+                                for ( var key in aazz_wc_country_array ) {
 
                                     html += '<option value="' + key + '">' + aazz_wc_country_array[key] + '</option>';
 
@@ -346,17 +336,16 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                 return html;
                             }
 
-
                             //**************************************
                             // Generates the HTML for the CONDITION
                             // select. Uses an array of keys to
                             // determine which ones are selected
                             //**************************************
-                            function generate_condition_html(keys) {
+                            function generate_condition_html( keys ) {
 
                                 html = "";
 
-                                for (var key in aazz_wc_condition_array) {
+                                for ( var key in aazz_wc_condition_array ) {
 
                                     html += '<option value="' + key + '">' + aazz_wc_condition_array[key] + '</option>';
                                 }
@@ -379,7 +368,6 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             jQuery(zoneID).on('click', '.add-zone-buttons a.add', function () {
 
                                 //ok lets add a row!
-
 
                                 var id = "#" + pluginID + "_settings table tbody tr:last";
                                 //create empty row
@@ -484,33 +472,32 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                         <?php
                     } else {
                         $method_id = $_GET['method_id'];
-                        $get_shipping_methods_options = get_option($this->aazz_wc_shipping_methods_option, array());
-                        $shipping_method_array = $get_shipping_methods_options[$method_id];
+                        $get_shipping_methods_options = get_option( $this->aazz_wc_shipping_methods_option, array() );
+                        $shipping_method_array = $get_shipping_methods_options[ $method_id ];
                         $get_selected_method_title = $shipping_method_array['method_title'];
-                        if (isset($shipping_method_array['method_title']) && $shipping_method_array['method_title'] != '') {
+                        if ( isset( $shipping_method_array['method_title'] ) && $shipping_method_array['method_title'] != '' ) {
                             $link_content .= ' &gt ';
-                            $link_content .= esc_html($get_selected_method_title);
+                            $link_content .= $get_selected_method_title;
                         }
                         ?>
                         <script>
                             jQuery('#mainform h2').first().replaceWith('<h2>' + '<?php echo $link_content; ?>' + '</h2>');
-                            var options = <?php echo json_encode($this->aazz_wc_dropdown()); ?>;
-
-                            var aazz_wc_country_array = <?php echo json_encode($this->aazz_wc_country_array); ?>;
-                            var aazz_wc_condition_array = <?php echo json_encode($this->aazz_wc_condition_array); ?>;
-                            var pluginID = <?php echo json_encode($this->id); ?>;
+                            var options = <?php echo json_encode( $this->aazz_wc_dropdown() ); ?>;
+                            var aazz_wc_country_array = <?php echo json_encode( $this->aazz_wc_country_array ); ?>;
+                            var aazz_wc_condition_array = <?php echo json_encode( $this->aazz_wc_condition_array ); ?>;
+                            var pluginID = <?php echo json_encode( $this->id ); ?>;
                             console.log('test NISL 2');
                             var lastID = 0;
 
                             <?php
                                     //!!
                             $shipping_method_key = $this->aazz_wc_option_key . '_' . $method_id;
-                            if (isset($data['default'])) {
-                                foreach ($data['default'] as $key => $value) {
+                            if ( isset( $data['default'] ) ) {
+                                foreach( $data['default'] as $key => $value ) {
                                     global $row;
                                     //add the key back into the json object
                                     $value['key'] = $key;
-                                    $row = json_encode($value);
+                                    $row = json_encode( $value );
                                     echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$row}));\n";
                                 }
                             }
@@ -523,7 +510,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                             /**
                              * This creates a new ZONE row
                              */
-                            function create_zone_row(row) {
+                            function create_zone_row( row ) {
 
                                 //lets get the ID of the last one
 
@@ -577,7 +564,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                                                                      * This creates a new RATE row
                                                                                      * The container Table is passed in and this row is added to it
                                                                                      */
-                                                                                    function create_rate_row(lastID, row) {
+                                                                                    function create_rate_row( lastID, row ) {
 
                                                                                         if (row == null || row.rates.length == 0) {
                                                                                             //lets manufacture a rows
@@ -824,19 +811,19 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     <div class="aazz-wc-table-rate-shipping-pro-box">
                         <div class="metabox-holder">
                             <div class="stuffbox">
-                                <h3 class="hndle"><?php _e( 'Need more features?', AAZZ_WC_TEXTDOMAIN ); ?></h3>
+                                <h3 class="hndle"><?php esc_html_e( 'Need more features?', AAZZ_WC_TEXTDOMAIN ); ?></h3>
                                 <div class="inside">
                                     <div class="main">
                                         <ul>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Support woocommerce build-in shipping classes', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Support Handling fees for each order', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Shipping rate can be guided by Country, State or Zip/Postal Code', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Calculate shipping based on the weight of items (lbs/kg)', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Calculate shipping Based on the number of item in the cart', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Calculate shipping Based on the item count', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Unlimited shipping services', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'Option to add Estimated Delivery Date', AAZZ_WC_TEXTDOMAIN ); ?></li>
-                                            <li><span class="dashicons dashicons-yes"></span> <?php _e( 'And much more...', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support woocommerce build-in shipping classes', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Support Handling fees for each order', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Shipping rate can be guided by Country, State or Zip/Postal Code', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping based on the weight of items (lbs/kg)', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the number of item in the cart', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Calculate shipping Based on the item count', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Unlimited shipping services', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Option to add Estimated Delivery Date', AAZZ_WC_TEXTDOMAIN ); ?></li>
+                                            <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'And much more...', AAZZ_WC_TEXTDOMAIN ); ?></li>
                                         </ul>
                                         <p class="text-center"><a target="_blank" href="https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/" class="button button-primary">Get the Pro Version Now!</a></p>
 
@@ -857,55 +844,55 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                     <thead>
                                     <tr>
                                         <th class="sort" style="width: 1%;">&nbsp;</th>
-                                        <th class="method_title" style="width: 30%;"><?php _e('Title', AAZZ_WC_TEXTDOMAIN); ?></th>
-                                        <th class="method_status" style="width: 1%;text-align: center;"><?php _e('Enabled', AAZZ_WC_TEXTDOMAIN); ?></th>
-                                        <th class="method_vasibility" style="width: 1%;text-align: center;"><?php _e('Vasibility', AAZZ_WC_TEXTDOMAIN); ?></th>
+                                        <th class="method_title" style="width: 30%;"><?php esc_html_e( 'Title', AAZZ_WC_TEXTDOMAIN ); ?></th>
+                                        <th class="method_status" style="width: 1%;text-align: center;"><?php esc_html_e( 'Enabled', AAZZ_WC_TEXTDOMAIN ); ?></th>
+                                        <th class="method_vasibility" style="width: 1%;text-align: center;"><?php esc_html_e( 'Vasibility', AAZZ_WC_TEXTDOMAIN ); ?></th>
 
-                                        <th class="method_select" style="width: 0%;"><input type="checkbox" class="tips checkbox-select-all" data-tip="<?php _e('Select all', AAZZ_WC_TEXTDOMAIN); ?> " class="checkall-checkbox-class" id="checkall_checkbox" /></th>
+                                        <th class="method_select" style="width: 0%;"><input type="checkbox" class="tips checkbox-select-all" data-tip="<?php esc_html_e( 'Select all', AAZZ_WC_TEXTDOMAIN ); ?> " class="checkall-checkbox-class" id="checkall_checkbox" /></th>
                                     </tr>
                                     </thead>
                                     <!--get option for saved methods details-->
                                     <?php
-                                    $get_shipping_methods_options = get_option($this->aazz_wc_shipping_methods_option, array());
+                                    $get_shipping_methods_options = get_option( $this->aazz_wc_shipping_methods_option, array() );
                                     $get_shipping_method_order = get_option( $this->aazz_wc_shipping_method_order_option, array() );
                                     $shipping_methods_options_array = array();
-                                    if (is_array($get_shipping_method_order)) {
-                                        foreach ($get_shipping_method_order as $method_id) {
-                                            if (isset($get_shipping_methods_options[$method_id])){
-                                                $shipping_methods_options_array[$method_id] = $get_shipping_methods_options[$method_id];
+                                    if ( is_array( $get_shipping_method_order ) ) {
+                                        foreach( $get_shipping_method_order as $method_id ) {
+                                            if ( isset( $get_shipping_methods_options[ $method_id ] ) ){
+                                                $shipping_methods_options_array[ $method_id ] = $get_shipping_methods_options[ $method_id ];
                                             }
                                         }
                                     }
                                     ?>
                                     <!--display shipping method data-->
                                     <tbody>
-                                    <?php foreach ($shipping_methods_options_array as $shipping_method_options) {
+                                    <?php foreach( $shipping_methods_options_array as $shipping_method_options ) {
                                         ?>
-                                        <tr id="shipping_method_id_<?php echo $shipping_method_options['method_id']; ?>" class="<?php //echo $tr_class; ?>">
+                                        <tr id="shipping_method_id_<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>" class="<?php //echo $tr_class; ?>">
                                             <td class="sort">
                                                 <input type="hidden" name="method_order[<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>]" value="<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>" />
                                             </td>
                                             <td class="method-title">
-                                                <a href="<?php echo remove_query_arg('shipping_methods_id', add_query_arg('method_id', $shipping_method_options['method_id'], add_query_arg('action', 'edit'))); ?>">
-                                                    <strong><?php echo esc_html($shipping_method_options['method_title']); ?></strong>
+                                                <a href="<?php echo remove_query_arg('shipping_methods_id', add_query_arg( 'method_id', $shipping_method_options['method_id'], add_query_arg('action', 'edit') ) ); ?>">
+                                                    <strong><?php echo esc_html( $shipping_method_options['method_title'] ); ?></strong>
                                                 </a>
                                             </td>
                                             <td class="method-status" style="width: 524px;display: -moz-stack; margin:0 auto;"">
-                                                <?php if (isset($shipping_method_options['method_enabled']) && 'yes' === $shipping_method_options['method_enabled']) : ?>
-                                                    <span class="status-enabled tips" style="margin:0 auto;" data-tip="<?php _e('yes', AAZZ_WC_TEXTDOMAIN); ?>"><?php _e('yes', AAZZ_WC_TEXTDOMAIN); ?></span>
+                                                <?php if ( isset( $shipping_method_options['method_enabled'] ) && 'yes' === $shipping_method_options['method_enabled'] ) : ?>
+                                                    <span class="status-enabled tips" style="margin:0 auto;" data-tip="<?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?>"><?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?></span>
                                                 <?php else : ?>
                                                     <span class="na">-</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td class="method-status" style="width:1%;display: -moz-stack;">
-                                                <?php if (isset($shipping_method_options['method_visibility']) && 'yes' === $shipping_method_options['method_visibility']) : ?>
-                                                    <span class="status-enabled tips" style="margin:0 auto; data-tip="<?php _e('yes', AAZZ_WC_TEXTDOMAIN); ?>"><?php _e('yes', AAZZ_WC_TEXTDOMAIN); ?></span>
+                                                <?php if ( isset( $shipping_method_options['method_visibility'] ) && 'yes' === $shipping_method_options['method_visibility'] ) : ?>
+                                                    <span class="status-enabled tips" style="margin:0 auto; data-tip="<?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?>"><?php esc_html_e( 'yes', AAZZ_WC_TEXTDOMAIN ); ?></span>
                                                 <?php else : ?>
                                                     <span class="na">-</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td class="method-select" style="width: 2% !important; margin-top:0" nowrap>
-                                                <input type="checkbox" class="tips checkbox-select select_shipping" value="<?php echo esc_attr($shipping_method_options['method_id']); ?>" data-tip="<?php echo esc_html($shipping_method_options['method_title']); ?>" />
+                                                <input type="checkbox" class="tips checkbox-select select_shipping" value="<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>" data-tip="<?php echo esc_html( $shipping_method_options['method_title'] ); ?>" />
                                             </td>
                                         </tr>
                                         <?php
@@ -916,7 +903,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                                     <tfoot>
                                     <tr>
                                         <th colspan="8">
-                                            <button id="aazz_wc_table_rate_remove_selected_method" class="button" disabled><?php _e('Remove selected Method', AAZZ_WC_TEXTDOMAIN); ?></button>
+                                            <button id="aazz_wc_table_rate_remove_selected_method" class="button" disabled><?php esc_html_e( 'Remove selected Method', AAZZ_WC_TEXTDOMAIN ); ?></button>
 
 
                                         </th>
@@ -961,7 +948,7 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     return ob_get_clean();
                 }
 
-                public function aazz_wc_new_shipping_method_form($shipping_method_array) {
+                public function aazz_wc_new_shipping_method_form( $shipping_method_array ) {
                     $this->form_fields = include AAZZ_WC_DIR . 'inc/new-shipping-method-form.php';
 
                 }
@@ -994,8 +981,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                     //first the CONDITION html
                     $this->aazz_wc_condition_array = array();
-                    $this->aazz_wc_condition_array['total'] = sprintf(__('Total Price (%s)', AAZZ_WC_TEXTDOMAIN), get_woocommerce_currency_symbol());
-                    $this->aazz_wc_condition_array['weight'] = sprintf(__('Weight (%s)', AAZZ_WC_TEXTDOMAIN), get_option('woocommerce_weight_unit'));
+                    $this->aazz_wc_condition_array['total'] = sprintf( __( 'Total Price (%s)', AAZZ_WC_TEXTDOMAIN ), get_woocommerce_currency_symbol() );
+                    $this->aazz_wc_condition_array['weight'] = sprintf( __( 'Weight (%s)', AAZZ_WC_TEXTDOMAIN ), get_option('woocommerce_weight_unit') );
 
 
 
@@ -1003,8 +990,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $this->aazz_wc_country_array = array();
 
                     // Get the country list from Woo....
-                    foreach (WC()->countries->get_shipping_countries() as $id => $value) :
-                        $this->aazz_wc_country_array[esc_attr($id)] = esc_js($value);
+                    foreach( WC()->countries->get_shipping_countries() as $id => $value ) :
+                        $this->aazz_wc_country_array[ esc_attr( $id ) ] = esc_js( $value );
                     endforeach;
                 }
 
@@ -1031,12 +1018,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     $arr = array();
                     //Now the countries
                     // Get the country list from Woo....
-                    foreach (WC()->countries->get_shipping_countries() as $id => $value) :
+                    foreach( WC()->countries->get_shipping_countries() as $id => $value ) :
                         $arr[esc_attr($id)] = esc_js($value);
                     endforeach;
 
                     //And create the HTML
-                    foreach ($arr as $key => $value) {
+                    foreach( $arr as $key => $value ) {
                         $html .= '<option value=">' . $key . '">' . $value . '</option>';
                     }
 
@@ -1045,11 +1032,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
                 //Creates the HTML options for the selected
 
-                function create_dropdown_html($arr) {
+                function create_dropdown_html( $arr ) {
 
                     $arr = array();
 
-                    $this->condition_html = html;
+                    $this->condition_html = 'html';
                 }
 
                 //drop down option
@@ -1059,13 +1046,13 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
                     // Get the country list from Woo....
-                    foreach (WC()->countries->get_shipping_countries() as $id => $value) :
-                        $options['country'][esc_attr($id)] = esc_js($value);
+                    foreach( WC()->countries->get_shipping_countries() as $id => $value ) :
+                        $options['country'][esc_attr($id)] = esc_js( $value );
                     endforeach;
 
                     // Now the conditions - cater for language & woo
-                    $option['condition']['price'] = sprintf(__('Total (%s)', AAZZ_WC_TEXTDOMAIN), get_woocommerce_currency_symbol());
-                    $option['condition']['weight'] = sprintf(__('Weight (%s)', AAZZ_WC_TEXTDOMAIN), get_option('woocommerce_weight_unit'));
+                    $option['condition']['price'] = sprintf( __( 'Total (%s)', AAZZ_WC_TEXTDOMAIN ), get_woocommerce_currency_symbol() );
+                    $option['condition']['weight'] = sprintf( __( 'Weight (%s)', AAZZ_WC_TEXTDOMAIN ), get_option('woocommerce_weight_unit') );
 
 
                     return $options;
@@ -1095,13 +1082,13 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 function get_options() {
 
                     //Retrieve the zones & rates
-                    $this->options = array_filter((array) get_option($this->aazz_wc_option_key));
+                    $this->options = array_filter( (array) get_option( $this->aazz_wc_option_key ) );
 
                     $x = 5;
                 }
 
                 //calculate shipping method
-                public function calculate_shipping($package = Array()) {
+                public function calculate_shipping( $package = Array() ) {
                     $wc_methods_option      = $this->aazz_wc_shipping_methods_option;
                     $wc_method_order_option = $this->aazz_wc_shipping_method_order_option;
                     $id                     = $this->id;
@@ -1110,36 +1097,36 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                     include AAZZ_WC_DIR . 'inc/aazz-wc-calculate-shipping.php';
                 }  //end calculate_shipping
 
-                function get_rates_for_country($country) {
+                function get_rates_for_country( $country ) {
 
                     //Loop thru and see if we can find one
-                    $get_shipping_methods_options = get_option($this->aazz_wc_shipping_methods_option, array());
+                    $get_shipping_methods_options = get_option( $this->aazz_wc_shipping_methods_option, array() );
 
                     $shipping_methods_options_array = array();
-                    foreach ($get_shipping_methods_options as $shipping_method) {
-                        if (!isset($shipping_methods_options_array[$shipping_method['method_id']]))
-                            $shipping_methods_options_array[$shipping_method['method_id']] = $shipping_method;
+                    foreach( $get_shipping_methods_options as $shipping_method ) {
+                        if ( ! isset( $shipping_methods_options_array[ $shipping_method['method_id'] ] ) )
+                            $shipping_methods_options_array[ $shipping_method['method_id'] ] = $shipping_method;
                     }
 
                     // Remove table rates if shipping method is disable
-                    foreach ($shipping_methods_options_array as $key => $shipping_method) {
-                        if (isset($shipping_method['method_enabled']) && 'yes' != $shipping_method['method_enabled'])
-                            unset($shipping_methods_options_array[$key]);
+                    foreach( $shipping_methods_options_array as $key => $shipping_method ) {
+                        if ( isset( $shipping_method['method_enabled'] ) && 'yes' != $shipping_method['method_enabled'])
+                            unset( $shipping_methods_options_array[ $key ] );
                     }
                     $shipping_methods_options = $shipping_methods_options_array;
                     $ret = array();
 
-                    foreach ($shipping_methods_options as $shipping_methods_option) {
+                    foreach( $shipping_methods_options as $shipping_methods_option ) {
 
-                        foreach ($shipping_methods_option['method_table_rates'] as $rate) {
-                            if (in_array($country, $rate['countries'])) {
+                        foreach( $shipping_methods_option['method_table_rates'] as $rate ) {
+                            if ( in_array( $country, $rate['countries'] ) ) {
                                 $ret[] = $rate;
                             }
                         }
                     }
 
                     //if we found something return it, otherwise a null.
-                    if (count($ret) > 0) {
+                    if ( count( $ret ) > 0) {
                         return $ret;
                     } else {
                         return null;
@@ -1147,23 +1134,23 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 }
 
                 //Here we find the matching rate
-                function find_matching_rate($value, $zones) {
+                function find_matching_rate( $value, $zones ) {
 
                     $zone = $zones;
-                    foreach ($zone as $zones_array) {
+                    foreach ( $zone as $zones_array ) {
 
                         // * means infinity!
-                        for ($i = 0; $i < 1; $i++) {
-                            if ($zone['max'][$i] == '*') {
-                                if ($value >= $zone['min'][$i]) {
+                        for( $i = 0; $i < 1; $i++ ) {
+                            if ( $zone['max'][$i] == '*' ) {
+                                if ( $value >= $zone['min'][ $i ] ) {
                                     $handling_fee = $zone['method_handling_fee'];
-                                    $total_fee = $zone['shipping'][$i] + $handling_fee;
+                                    $total_fee = $zone['shipping'][ $i ] + $handling_fee;
                                     return $total_fee;
                                 }
                             } else {
-                                if ($value >= $zone['min'][$i] && $value <= $zone['max'][$i]) {
+                                if ( $value >= $zone['min'][ $i ] && $value <= $zone['max'][ $i ] ) {
                                     $handling_fee = $zone['method_handling_fee'];
-                                    $total_fee = $zone['shipping'][$i] + $handling_fee;
+                                    $total_fee    = $zone['shipping'][ $i ] + $handling_fee;
                                     return $total_fee;
                                 }
                             }
@@ -1175,15 +1162,15 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
                 }
 
                 //It uses an asterisk for infinite
-                function find_matching_rate_custom($value, $rates) {
+                function find_matching_rate_custom( $value, $rates ) {
                     $rate = $rates;
-                    if ($rate['max'] == '*') {
-                        if ($value >= $rate['min']) {
+                    if ( $rate['max'] == '*' ) {
+                        if ( $value >= $rate['min'] ) {
                             $total_fee = $rate['shipping'];
                             return $total_fee;
                         }
                     } else {
-                        if ($value >= $rate['min'] && $value <= $rate['max']) {
+                        if ($value >= $rate['min'] && $value <= $rate['max'] ) {
                             $total_fee = $rate['shipping'];
                             return $total_fee;
                         }
@@ -1205,21 +1192,18 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 						WHERE wszm.instance_id = '$instance_id'
 						AND wszm.method_id LIKE '$method_id'
 					" );
-                    $zone_id = reset($zone_id); // converting to string
+                    $zone_id = reset( $zone_id ); // converting to string
 
                     // 1. Wrong Shipping method rate id
-                    if( empty($zone_id) )
-                    {
-                        return __("Error! doesn't exist…");
+                    if( empty( $zone_id ) ) {
+                        return __( "Error! doesn't exist…", AAZZ_WC_TEXTDOMAIN );
                     }
                     // 2. Default WC Zone name
-                    elseif( $zone_id == 0 )
-                    {
-                        return __("All Other countries");
+                    elseif( $zone_id == 0 ) {
+                        return __( "All Other countries", AAZZ_WC_TEXTDOMAIN );
                     }
                     // 3. Created Zone name
-                    else
-                    {
+                    else {
                         return $zone_id;
                     }
                 }
