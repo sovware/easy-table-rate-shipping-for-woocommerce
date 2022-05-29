@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( isset( $_POST['shipping_method_action'] ) ) {
-    $shipping_method_action = $_POST['shipping_method_action'];
+    $shipping_method_action = sanitize_key( $_POST['shipping_method_action'] );
 }
 if ( $shipping_method_action == 'new' || $shipping_method_action == 'edit' ) {
     //Arrays to hold the clean POST vars
@@ -91,8 +91,8 @@ if ( $shipping_method_action == 'new' || $shipping_method_action == 'edit' ) {
         update_option( 'aazz_wc_table_rate_sub_shipping_method_id', sanitize_key( $method_id ) );
         $method_id_for_shipping = $this->id . '_' . $this->instance_id . '_' . $method_id;
     } else {
-        $method_id = $_POST['shipping_method_id'];
-        $method_id_for_shipping = $_POST['method_id_for_shipping'];
+        $method_id = sanitize_key( $_POST['shipping_method_id'] );
+        $method_id_for_shipping = sanitize_key( $_POST['method_id_for_shipping'] );
     }
 
     $shipping_method_array['method_id'] = $method_id;
@@ -111,7 +111,7 @@ if ( $shipping_method_action == 'new' || $shipping_method_action == 'edit' ) {
     $get_shipping_methods_options[$method_id] = $shipping_method_array;
     update_option( $wc_methods_option, $get_shipping_methods_options );
     if ( isset( $_GET['action'] ) ) {
-        $shipping_method_action = $_GET['action'];
+        $shipping_method_action = sanitize_key( $_GET['action'] );
     }
 
     if ( $shipping_method_action == 'new' ) {

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $shipping_method_action = false;
 
     if ( isset( $_GET['action'] ) ) {
-        $shipping_method_action = $_GET['action'];
+        $shipping_method_action = sanitize_key( $_GET['action'] );
     }
 
     if ( $shipping_method_action == 'new' || $shipping_method_action == 'edit' ) {
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         $method_id = '';
 
         if ( $shipping_method_action == 'edit' ) {
-            $method_id = $_GET['method_id'];
+            $method_id = sanitize_key( $_GET['method_id'] );
             $shipping_method_array = $get_shipping_methods_options[ $method_id ];
             $method_id_for_shipping = $wc_id . '_' . $wc_instance_id . '_' . sanitize_title( $shipping_method_array['method_title'] );
             if ( isset( $shipping_method_array['method_id_for_shipping'] ) && $shipping_method_array['method_id_for_shipping'] != '' ) {
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         $selected_shipping_methods_id = '';
         // get selected methods id and explode it with ','
         if ( isset( $_GET['shipping_methods_id'] ) ) {
-            $selected_shipping_methods_id = explode( ',', $_GET['shipping_methods_id'] );
+            $selected_shipping_methods_id = explode( ',', sanitize_key( $_GET['shipping_methods_id'] ) );
         }
         // get all shipping methods options for delete
         $get_shipping_methods_options_for_delete = get_option( $wc_shipping_methods_option, array() ); //

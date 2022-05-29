@@ -110,7 +110,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                 public function generate_table_rates_table_html( $key, $data ) {
                     ob_start();
                     if ( isset( $_GET['action'] ) ) {
-                        $get_action_name = $_GET['action'];
+                        $get_action_name = sanitize_key( $_GET['action'] );
                     }
                     ?>
                     <script>
@@ -155,18 +155,19 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         </td>
                     </tr>
                     <?php
-                    $zone = WC_Shipping_Zones::get_zone_by( 'instance_id', $_GET['instance_id'] );
-                    $get_shipping_method_by_instance_id = WC_Shipping_Zones::get_shipping_method( $_GET['instance_id'] );
-                    $link_content = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping' ) . '">' . __( 'Shipping Zones', 'woocommerce' ) . '</a> &gt ';
-                    $link_content .= '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=' . absint( $zone->get_id() ) ) . '">' . esc_html( $zone->get_zone_name() ) . '</a> &gt ';
-                    $link_content .= '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping&instance_id=' . $_GET['instance_id']) . '">' . esc_html( $get_shipping_method_by_instance_id->get_title() ) . '</a>';
+                    $instance_id = sanitize_key( $_GET['instance_id'] );
+                    $zone = WC_Shipping_Zones::get_zone_by( 'instance_id', $instance_id );
+                    $get_shipping_method_by_instance_id = WC_Shipping_Zones::get_shipping_method( $instance_id );
+                    $link_content = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping' ) . '">' . __( 'Shipping Zones', 'woocommerce' ) . '</a> > ';
+                    $link_content .= '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping&zone_id=' . absint( $zone->get_id() ) ) . '">' . esc_html( $zone->get_zone_name() ) . '</a> > ';
+                    $link_content .= '<a href="' . admin_url('admin.php?page=wc-settings&tab=shipping&instance_id=' . $instance_id ) . '">' . esc_html( $get_shipping_method_by_instance_id->get_title() ) . '</a>';
 //                                        <!--check action is new or edit-->
                     if ( $get_action_name == 'new' ) {
-                        $link_content .= ' &gt ';
+                        $link_content .= ' > ';
                         $link_content .= __( 'Add New', 'easy-table-rate-shipping-for-woocommerce' );
                         ?>
                         <script>
-                            jQuery("#mainform h2").first().replaceWith('<h2>' + '<?php echo $link_content; ?>' + '</h2>');
+                            jQuery("#mainform h2").first().replaceWith('<h2>' + '<?php echo wp_kses_post( $link_content ); ?>' + '</h2>');
                             var options = <?php echo json_encode( $this->aazz_wc_dropdown() ); ?>;
 
                             var aazz_wc_country_array = <?php echo json_encode( $this->aazz_wc_country_array ); ?>;
@@ -471,17 +472,17 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                         </script>
                         <?php
                     } else {
-                        $method_id = $_GET['method_id'];
+                        $method_id = sanitize_key( $_GET['method_id'] );
                         $get_shipping_methods_options = get_option( $this->aazz_wc_shipping_methods_option, array() );
                         $shipping_method_array = $get_shipping_methods_options[ $method_id ];
                         $get_selected_method_title = $shipping_method_array['method_title'];
                         if ( isset( $shipping_method_array['method_title'] ) && $shipping_method_array['method_title'] != '' ) {
-                            $link_content .= ' &gt ';
+                            $link_content .= ' > ';
                             $link_content .= $get_selected_method_title;
                         }
                         ?>
                         <script>
-                            jQuery('#mainform h2').first().replaceWith('<h2>' + '<?php echo $link_content; ?>' + '</h2>');
+                            jQuery('#mainform h2').first().replaceWith('<h2>' + '<?php echo wp_kses_post( $link_content ); ?>' + '</h2>');
                             var options = <?php echo json_encode( $this->aazz_wc_dropdown() ); ?>;
                             var aazz_wc_country_array = <?php echo json_encode( $this->aazz_wc_country_array ); ?>;
                             var aazz_wc_condition_array = <?php echo json_encode( $this->aazz_wc_condition_array ); ?>;
@@ -873,7 +874,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                                                 <input type="hidden" name="method_order[<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>]" value="<?php echo esc_attr( $shipping_method_options['method_id'] ); ?>" />
                                             </td>
                                             <td class="method-title">
-                                                <a href="<?php echo remove_query_arg('shipping_methods_id', add_query_arg( 'method_id', $shipping_method_options['method_id'], add_query_arg('action', 'edit') ) ); ?>">
+                                                <a href="<?php echo esc_url( remove_query_arg('shipping_methods_id', add_query_arg( 'method_id', $shipping_method_options['method_id'], add_query_arg('action', 'edit') ) ) ); ?>">
                                                     <strong><?php echo esc_html( $shipping_method_options['method_title'] ); ?></strong>
                                                 </a>
                                             </td>
