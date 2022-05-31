@@ -1,9 +1,9 @@
-=== WooCommerce Table Rate Shipping ===
+=== Easy Table Rate Shipping for WooCommmerce ===
 Contributors: wpwax
 Tags: woocommerce table rate shipping, woocommerce shipping, table rate shipping, conditional shipping, free shipping
 Requires at least: 4.0
-Tested up to:  5.9
-Stable tag: 1.2.1
+Tested up to:  6.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ After installing and activating the plugin, you go to  "Settings" menu from "Woo
 5. Cart
 
 == Changelog ==
+= 1.3.0 =
+* Add: WordPress 6.0 compatibility
+* Add: WooCommerce 6.5 compatibility
+* Fix: Security issue
 = 1.2.1 =
 * Add: WordPress 5.9 compatibility
 * Add: WooCommerce 6.1 compatibility

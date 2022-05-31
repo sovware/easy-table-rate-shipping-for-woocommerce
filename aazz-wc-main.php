@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: WooCommerce Table Rate Shipping
+Plugin Name: Easy Table Rate Shipping for WooCommmerce
 Plugin URI:  https://wpwax.com/product/easy-table-rate-shipping-pro-for-woocommerce/
 Description: It allows you to calculate WooCommerce shipping cost based on total price or weight.
-Version:     1.2.1
+Version:     1.3.0
 Author:      wpWax
 Author URI:  https://wpwax.com
 License:     GPL2 or later
@@ -11,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Domain Path: /languages/
 Text Domain: easy-table-rate-shipping-for-woocommerce
 WC requires at least: 3.0
-WC tested up to: 6.1
+WC tested up to: 6.5
 */
 defined( 'ABSPATH' ) || die( 'Cheating, huh? Direct access to this file is not allowed !!!!' );
 

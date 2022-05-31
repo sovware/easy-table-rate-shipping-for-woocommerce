@@ -179,11 +179,11 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             <?php
                             //
                             foreach ( $this->options as $key => $value ) {
-                                global $row;
+                                global $etrs_for_wc_row;
                                 //add the key back into the json object
                                 $value['key'] = $key;
-                                $row = json_encode( $value );
-                                echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$row}));\n";
+                                $etrs_for_wc_row = json_encode( $value );
+                                echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$etrs_for_wc_row}));\n";
                             }
                             ?>
 
@@ -495,18 +495,14 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
                             $shipping_method_key = $this->aazz_wc_option_key . '_' . $method_id;
                             if ( isset( $data['default'] ) ) {
                                 foreach( $data['default'] as $key => $value ) {
-                                    global $row;
+                                    global $etrs_for_wc_row;
                                     //add the key back into the json object
                                     $value['key'] = $key;
-                                    $row = json_encode( $value );
-                                    echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$row}));\n";
+                                    $etrs_for_wc_row = json_encode( $value );
+                                    echo "jQuery('#{$this->id}_settings table tbody tr:last').before(create_zone_row({$etrs_for_wc_row}));\n";
                                 }
                             }
                             ?>
-
-
-
-
 
                             /**
                              * This creates a new ZONE row
